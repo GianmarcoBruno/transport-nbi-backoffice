@@ -17,7 +17,7 @@ still to be sorted out.
 ### te-topology has local modifications 
 Local ietf-te-topology.yang differs by those extract from
 draft-ietf-teas-yang-te-topo-09.txt as follows:
-
+`
   *** ietf-te-topology@2017-06-10.yang	2017-12-04 16:01:00.619568247 +0100
 --- ../transport-nbi-backoffice/ietf-te-topology@2017-06-10.yang	2017-12-04 15:32:55.429465081 +0100
 ***************
@@ -56,3 +56,4 @@ draft-ietf-teas-yang-te-topo-09.txt as follows:
           description
             "Statistics data.";
           uses statistics-per-link;
+`
