@@ -1,6 +1,5 @@
 module ietf-te-types {
 
-
   namespace "urn:ietf:params:xml:ns:yang:ietf-te-types";
 
   /* Replace with IANA when assigned */
@@ -47,20 +46,13 @@ module ietf-te-types {
      Editor:   Xufeng Liu
                <mailto:xufeng.liu@ericsson.com>
 
-     Editor:   Xia Chen
-               <mailto:jescia.chenxia@huawei.com>
-
-     Editor:   Raqib Jones
-               <mailto:raqib@Brocade.com>
-
-     Editor:   Bin Wen
-               <mailto:Bin_Wen@cable.comcast.com>";
-
+     Editor:   Igor Bryskin
+               <mailto:Igor.Bryskin@huawei.com>";
   description
     "This module contains a collection of generally
     useful TE specific YANG data type defintions.";
 
-  revision "2017-03-10" {
+  revision "2017-07-02" {
     description "Latest revision of TE types";
     reference "RFC3209";
   }
@@ -68,6 +60,44 @@ module ietf-te-types {
   /*
    * Identities
    */
+  identity objective-function-type {
+    description "Base objective function type";
+  }
+  identity of-minimize-cost-path {
+    base objective-function-type;
+    description
+        "Mimimuze cost of path objective function";
+  }
+  identity of-minimize-load-path {
+    base objective-function-type;
+    description
+        "Minimize the load on path(s) objective
+         function";
+  }
+  identity of-maximize-residual-bandwidth {
+    base objective-function-type;
+    description
+        "Maximize the residual bandwidth objective
+         function";
+  }
+  identity of-minimize-agg-bandwidth-consumption {
+    base objective-function-type;
+    description
+        "minimize the aggregate bandwidth consumption
+         objective function";
+  }
+  identity of-minimize-load-most-loaded-link {
+    base objective-function-type;
+    description
+        "Minimize the load on the most loaded link
+         objective function";
+  }
+  identity of-minimize-cost-path-set {
+    base objective-function-type;
+    description
+        "Minimize the cost on a path set objective
+         function";
+  }
 
   identity path-computation-method {
     description
@@ -98,11 +128,38 @@ module ietf-te-types {
   identity path-explicitly-defined {
     base path-computation-method;
     description
-
      "constrained-path LSP in which the path is
       explicitly specified as a collection of strict or/and loose
       hops";
   }
+
+  /**
+   * Typedefs
+   */
+
+  typedef te-bandwidth {
+    type string {
+      pattern
+        '0[xX](0((\.0?)?[pP](\+)?0?|(\.0?))|'
+      + '1(\.([\da-fA-F]{0,5}[02468aAcCeE]?)?)?[pP](\+)?(12[0-7]|'
+      + '1[01]\d|0?\d?\d)?)|0[xX][\da-fA-F]{1,8}|\d+'
+      + '(,(0[xX](0((\.0?)?[pP](\+)?0?|(\.0?))|'
+      + '1(\.([\da-fA-F]{0,5}[02468aAcCeE]?)?)?[pP](\+)?(12[0-7]|'
+      + '1[01]\d|0?\d?\d)?)|0[xX][\da-fA-F]{1,8}|\d+))*';
+    }
+    description
+      "This is the generic bandwidth type that is a string containing
+       a list of numbers separated by commas, with each of these
+       number can be non-negative decimal, hex integer, or hex float:
+       (dec | hex | float)[*(','(dec | hex | float))]
+       For packet switching type, a float number is used, such as
+       0x1p10.
+       For OTN switching type, a list of integers can be used, such
+       as '0,2,3,1', indicating 2 odu0's and 1 odu3.
+       For DWDM, a list of pairs of slot number and width can be
+       used, such as '0, 2, 3, 3', indicating a frequency slot 0 with
+       slot width 2 and a frequency slot 3 with slot width 3.";
+  } // te-bandwidth
 
   typedef te-ds-class {
     type uint8 {
@@ -147,7 +204,6 @@ module ietf-te-types {
     description
       "The metric specified for the LSPs to which this identity refers
       is specified as an absolute value";
-
   }
 
   identity LSP_METRIC_INHERITED {
@@ -225,27 +281,96 @@ module ietf-te-types {
     description "TE action inprogress.";
   }
 
-  identity state-type {
+  identity tunnel-admin-state-type {
     description
-      "Base identity for TE states";
+      "Base identity for TE tunnel admin states";
   }
 
-  identity state-up {
-    base state-type;
-    description
-      "State up";
+  identity tunnel-admin-state-up {
+    base tunnel-admin-state-type;
+    description "Tunnel administratively state up";
   }
 
-  identity state-down {
-    base state-type;
+  identity tunnel-admin-state-down {
+    base tunnel-admin-state-type;
+    description "Tunnel administratively state down";
+  }
+
+  identity tunnel-state-type {
     description
-      "State down";
+      "Base identity for TE tunnel states";
+  }
+
+  identity tunnel-state-up {
+    base tunnel-state-type;
+    description "Tunnel state up";
+  }
+
+  identity tunnel-state-down {
+    base tunnel-state-type;
+    description "Tunnel state down";
+  }
+
+  identity lsp-state-type {
+    description
+      "Base identity for TE LSP states";
+  }
+
+  identity lsp-path-computing {
+    base lsp-state-type;
+    description
+      "State path compute in progress";
+  }
+
+  identity lsp-path-computation-ok {
+    base lsp-state-type;
+    description
+      "State path compute successful";
+  }
+
+  identity lsp-path-computatione-failed {
+    base lsp-state-type;
+    description
+      "State path compute failed";
+  }
+
+  identity lsp-state-setting-up {
+    base lsp-state-type;
+    description
+      "State setting up";
+  }
+
+  identity lsp-state-setup-ok {
+    base lsp-state-type;
+    description
+      "State setup successful";
+  }
+
+  identity lsp-state-setup-failed {
+    base lsp-state-type;
+    description
+      "State setup failed";
+  }
+
+  identity lsp-state-up {
+    base lsp-state-type;
+    description "State up";
+  }
+
+  identity lsp-state-tearing-down {
+    base lsp-state-type;
+    description
+      "State tearing down";
+  }
+
+  identity lsp-state-down {
+    base lsp-state-type;
+    description "State down";
   }
 
   identity path-invalidation-action-type {
     description
       "Base identity for TE path invalidation action types";
-
   }
 
   identity path-invalidation-action-drop-type {
@@ -259,7 +384,6 @@ module ietf-te-types {
     description
       "TE path invalidation action tear";
   }
-
   identity lsp-prot-type {
     description
       "Base identity from which LSP protection types are
@@ -293,7 +417,6 @@ module ietf-te-types {
       "LSP protection '1:N Protection with Extra-Traffic'";
     reference "RFC4872";
   }
-
 
   identity lsp-prot-unidir-1-to-1 {
     base lsp-prot-type;
@@ -392,7 +515,6 @@ module ietf-te-types {
   }
 
   identity lsp-encoding-digital-wrapper {
-
     base lsp-encoding-types;
     description
       "Digital Wrapper LSP encoding";
@@ -441,7 +563,6 @@ module ietf-te-types {
   }
 
   identity path-signaling-rsvpte {
-
     base tunnel-type;
     description
       "RSVP-TE path signaling type";
@@ -490,7 +611,6 @@ module ietf-te-types {
 
   feature extended-admin-groups {
     description
-
       "Indicates support for TE link extended admin
       groups.";
   }
@@ -504,7 +624,6 @@ module ietf-te-types {
     description
       "Indicates support for named extended admin groups";
   }
-
   feature named-srlg-groups {
     description
       "Indicates support for named SRLG groups";
@@ -515,169 +634,14 @@ module ietf-te-types {
       "Indicates support for named path constraints";
   }
 
-  grouping explicit-route-hop_config {
+  feature path-optimization-metric {
     description
-      "The explicit route subobject grouping";
-    leaf index {
-      type uint32;
-      description "ERO subobject index";
-    }
-    choice type {
-      description
-        "The explicit route subobject type";
-      case ip-address {
-        description
-          "IP address explicit route subobject";
-        container ip-address-hop {
-          description "IP address hop type";
-          leaf address {
-            type inet:ip-address;
-            description
-              "ERO IP address.";
-          }
-          leaf hop-type {
-            type te-hop-type;
-              description
-                "strict or loose hop";
-
-          }
-        }
-      }
-      case as-number {
-        container as-number-hop {
-          leaf as-number {
-            type binary {
-              length 16;
-            }
-            description "AS number";
-          }
-          leaf hop-type {
-            type te-hop-type;
-              description
-                "strict or loose hop";
-          }
-          description
-            "Autonomous System explicit route subobject";
-        }
-      }
-      case unnumbered-link {
-        container unnumbered-hop {
-          leaf router-id {
-            type inet:ip-address;
-            description
-              "A router-id address";
-          }
-          leaf interface-id {
-            type uint32;
-            description "The interface identifier";
-          }
-          leaf hop-type {
-            type te-hop-type;
-              description
-                "strict or loose hop";
-          }
-          description
-            "Unnumbered link explicit route subobject";
-          reference
-            "RFC3477: Signalling Unnumbered Links in
-            RSVP-TE";
-        }
-      }
-      case label {
-        container label-hop {
-          description "Label hop type";
-          leaf value {
-            type rt-types:generalized-label;
-
-            description "the label value";
-          }
-        }
-        description
-          "The Label ERO subobject";
-      }
-      case sid {
-        container sid-hop {
-          description "foo";
-          leaf sid {
-            type rt-types:generalized-label;
-            description "Segment-routing identifier";
-          }
-        }
-        description "Segment-routing identifier";
-      }
-    }
+      "Indicates support for path optimization metric";
   }
 
-  grouping explicit-route-hop {
-    description "Explicit route hop grouping";
-    container config {
-      description
-        "Configuration parameters for the explicit route hop";
-      uses explicit-route-hop_config;
-    }
-    container state {
-      config false;
-      description
-        "State parameters for the explicit route hop";
-      uses explicit-route-hop_config;
-    }
-  }
-
-  grouping record-route-subobject {
+  feature path-optimization-objective-function {
     description
-      "The record route subobject grouping";
-    choice type {
-      description
-        "The record route subobject type";
-      case ip-address {
-        leaf ip-address {
-          type inet:ip-address;
-          description
-            "RRO IP address subobject.";
-        }
-        leaf ip-flags {
-          type binary {
-
-            length 8;
-          }
-          description
-            "RRO IP address sub-object flags";
-          reference "RFC3209";
-        }
-      }
-      case unnumbered-link {
-        leaf router-id {
-          type inet:ip-address;
-          description
-            "A router-id address";
-        }
-        leaf interface-id {
-          type uint32;
-          description "The interface identifier";
-        }
-        description
-          "Unnumbered link record route subobject";
-        reference
-          "RFC3477: Signalling Unnumbered Links in
-           RSVP-TE";
-      }
-      case label {
-        leaf value {
-          type rt-types:generalized-label;
-          description "the label value";
-        }
-        leaf label-flags {
-          type binary {
-            length 8;
-          }
-          description
-            "Label sub-object flags";
-          reference "RFC3209";
-        }
-        description
-          "The Label ERO subobject";
-      }
-    }
+      "Indicates support for path optimization objective function";
   }
 
   identity route-usage-type {
@@ -686,7 +650,6 @@ module ietf-te-types {
   }
 
   identity route-include-ero {
-
     base route-usage-type;
     description
       "Include ERO from route";
@@ -727,6 +690,13 @@ module ietf-te-types {
       "Hop path metric";
   }
 
+  identity path-metric-delay-average {
+    base path-metric-type;
+    description
+      "Unidirectional average link delay";
+    reference "RFC7471";
+  }
+
   identity path-tiebreaker-type {
     description
       "Base identity for path tie-breaker type";
@@ -735,7 +705,6 @@ module ietf-te-types {
   identity path-tiebreaker-minfill {
     base path-tiebreaker-type;
     description
-
       "Min-Fill LSP path placement";
   }
 
@@ -784,7 +753,6 @@ module ietf-te-types {
     base bidir-association-type;
     description
       "Non co-routed bidirectional association type";
-
   }
 
   identity resource-affinities-type {
@@ -815,6 +783,23 @@ module ietf-te-types {
       tunnel any of which renders a link unacceptable";
   }
 
+  typedef optimization-goal {
+    type enumeration {
+      enum minimize {
+        description "Pick lowest path metric goal";
+      }
+      enum maximize {
+        description "Pick highest path metric goal";
+      }
+      enum randomize {
+        description
+          "Pick a path at random from list of
+           equally favorable ones";
+      }
+    }
+    description "TE optimization goal";
+  }
+
   identity te-optimization-criterion {
     description
       "Base identity for TE optimization criterion.";
@@ -832,7 +817,6 @@ module ietf-te-types {
     base te-optimization-criterion;
     description "Optimized on cost.";
   }
-
 
   identity delay {
     base te-optimization-criterion;
@@ -882,7 +866,6 @@ module ietf-te-types {
 
   typedef te-admin-status {
     type enumeration {
-
       enum up {
         description
           "Enabled.";
@@ -931,7 +914,6 @@ module ietf-te-types {
           "The link is point-to-point.";
       }
       enum multi-access {
-
         description
           "The link is multi-access, including broacast and NBMA.";
       }
@@ -980,7 +962,6 @@ module ietf-te-types {
            Traffic Engineering Networks";
       }
       enum maintenance {
-
         description
           "Resource is disabled in the data plane for maintenance
            purposes.";
@@ -990,6 +971,29 @@ module ietf-te-types {
       "Defines a type representing the operational status of
        a TE resource.";
   }
+
+  typedef te-path-disjointness {
+    type bits {
+      bit node {
+        position 0;
+        description "Node disjoint.";
+      }
+      bit link {
+        position 1;
+        description "Link disjoint.";
+      }
+      bit srlg {
+        position 2;
+        description "SRLG (Shared Risk Link Group) disjoint.";
+      }
+    }
+    description
+      "Type of the resource disjointness for a TE tunnel path.";
+    reference
+      "RFC4872: RSVP-TE Extensions in Support of End-to-End
+       Generalized Multi-Protocol Label Switching (GMPLS)
+       Recovery";
+  } // te-path-disjointness
 
   typedef te-recovery-status {
     type enumeration {
@@ -1029,7 +1033,6 @@ module ietf-te-types {
            on the recovery span.";
       }
       enum recovery-admin {
-
         description
           "The operator has issued a command switching the user
            traffic to the recovery span.";
@@ -1127,7 +1130,6 @@ module ietf-te-types {
   }
 
   typedef srlg {
-
     type uint32;
     description "SRLG type";
   }
@@ -1168,6 +1170,176 @@ module ietf-te-types {
   }
 
   /**
+   * TE bandwidth groupings
+   **/
+  identity otn-rate-type {
+    description
+      "Base type to identify OTN bit rates of various information
+       structures.";
+  }
+  identity odu0 {
+    base otn-rate-type;
+    description
+        "ODU0 bit rate.";
+  }
+  identity odu1 {
+    base otn-rate-type;
+    description
+        "ODU1 bit rate.";
+  }
+  identity odu2 {
+    base otn-rate-type;
+    description
+        "ODU2 bit rate.";
+  }
+  identity odu3 {
+    base otn-rate-type;
+    description
+        "ODU3 bit rate.";
+  }
+  identity odu4 {
+    base otn-rate-type;
+    description
+        "ODU4 bit rate.";
+  }
+  identity odu2e {
+    base otn-rate-type;
+    description
+        "ODU2e bit rate.";
+  }
+  identity oduc {
+    base otn-rate-type;
+    description
+        "ODUCn bit rate.";
+  }
+  identity oduflex {
+    base otn-rate-type;
+    description
+        "ODUflex bit rate.";
+  }
+
+  identity wdm-spectrum-type {
+    description
+      "Base type to identify WDM spectrum type.";
+  }
+  identity cwdm {
+    base wdm-spectrum-type;
+    description
+        "CWDM.";
+  }
+  identity dwdm {
+    base wdm-spectrum-type;
+    description
+        "DWDM.";
+  }
+  identity flexible-grid {
+    base wdm-spectrum-type;
+    description
+        "Flexible grid.";
+  }
+
+  grouping te-bandwidth {
+    description
+      "This grouping defines the generic TE bandwidth.
+       For some known data plane technologies, specific modeling
+       structures are specified. The string encoded te-bandwidth
+       type is used for un-specified technologies.
+       The modeling structure can be augmented later for other
+       technologies.";
+    container te-bandwidth {
+      description
+        "Container that specifies TE bandwidth.";
+      choice technology {
+        default generic;
+        description
+          "Data plane technology type.";
+        case psc {
+          leaf psc {
+            type rt-types:bandwidth-ieee-float32;
+            description
+              "Bandwidth in packet switching networks.";
+            reference
+              "RFC3630: Traffic Engineering (TE) Extensions to OSPF
+               Version 2.
+               RFC5305: IS-IS Extensions for Traffic Engineering.";
+          }
+        }
+        case otn {
+          list otn {
+            key "rate-type";
+            description
+              "Bandwidth in OTN (Optical Transport Network).";
+            reference
+              "ITU-T G.709/Y.1331: Interfaces for the optical
+               transport network.";
+            leaf rate-type {
+              type identityref {
+                base otn-rate-type;
+              }
+              description
+                "OTN bit rate types of various information
+                 structures.";
+            }
+            leaf counter {
+              type uint16;
+              description
+                "Number of channels.";
+            }
+          }
+        }
+        case lsc {
+          list wdm {
+            key "spectrum slot";
+            description
+              "Bandwidth in Lambda Switch Capable (LSC) networks.";
+            reference
+              "ITU-t G.694.1: Spectral grids for WDM applications:
+               DWDM frequency grid.";
+            leaf spectrum {
+              type identityref {
+                base wdm-spectrum-type;
+              }
+              description
+                "Optical spectrum allocation type.";
+              reference
+                "RFC7699: Generalized Labels for the Flexi-Grid in
+                 Lambda Switch Capable (LSC) Label Switching
+                 Routers";
+            }
+            leaf slot {
+              type int16;
+              description
+                "The value identifies the central frenquency of a
+                 frequency slot.";
+              reference
+                "RFC7792: RSVP-TE Signaling Extensions in Support of
+                 Flexi-Grid Dense Wavelength Division Multiplexing
+                 (DWDM) Networks.";
+            }
+            leaf width {
+              type uint16;
+              description
+                "The slot width is calculated as this value times
+                 12.5 GHz.";
+              reference
+                "RFC7792: RSVP-TE Signaling Extensions in Support of
+                 Flexi-Grid Dense Wavelength Division Multiplexing
+                 (DWDM) Networks.";
+            }
+          }
+        }
+        case generic {
+          leaf generic {
+            type te-bandwidth;
+            description
+              "Bandwidth specified in a generic format.";
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * TE performance metric groupings
    **/
   grouping performance-metric-container {
@@ -1176,7 +1348,6 @@ module ietf-te-types {
     container performance-metric {
       description
         "Link performance information in real time.";
-
       reference
         "RFC7471: OSPF Traffic Engineering (TE) Metric Extensions.
          RFC7810: IS-IS Traffic Engineering (TE) Metric Extensions.
@@ -1225,7 +1396,6 @@ module ietf-te-types {
       type uint32 {
         range 0..16777215;
       }
-
       description "Maximum delay or latency in micro seconds.";
     }
     leaf unidirectional-delay-variation {
@@ -1274,7 +1444,6 @@ module ietf-te-types {
 
   grouping performance-metric-normality-attributes {
     description
-
       "Link performance metric normality attributes.";
     reference
       "RFC7471: OSPF Traffic Engineering (TE) Metric Extensions.
@@ -1323,7 +1492,6 @@ module ietf-te-types {
       must "suppression-interval >= measure-interval" {
         error-message
           "suppression-interval cannot be less then
-
            measure-interval.";
         description
           "Constraint on suppression-interval and
@@ -1372,7 +1540,6 @@ module ietf-te-types {
           "If the measured parameter falls outside an upper bound
            for all but the min delay metric (or lower bound for
            min-delay metric only) and the advertised value is not
-
            already outside that bound, anomalous announcement will be
            triggered.";
       }
@@ -1400,9 +1567,458 @@ module ietf-te-types {
    **/
 
   /* Tunnel path selection parameters */
+  grouping explicit-route-hop_config {
+    description
+      "The explicit route subobject grouping";
+    leaf index {
+      type uint32;
+      description "ERO subobject index";
+    }
+    choice type {
+      description
+        "The explicit route subobject type";
+      case numbered {
+        description
+          "Numbered link explicit route subobject";
+        container numbered-hop {
+          description "Numbered link hop type";
+          leaf address {
+            type te-types:te-tp-id;
+            description
+              "Numbered link TE termination point address.";
+          }
+          leaf hop-type {
+            type te-hop-type;
+              description
+                "strict or loose hop";
+          }
+        }
+      }
+      case as-number {
+        container as-number-hop {
+          leaf as-number {
+            type binary {
+              length 16;
+            }
+            description "AS number";
+          }
+          leaf hop-type {
+            type te-hop-type;
+              description
+                "strict or loose hop";
+          }
+          description
+            "Autonomous System explicit route subobject";
+        }
+      }
+      case unnumbered {
+        container unnumbered-hop {
+          leaf node-id {
+            type te-types:te-node-id;
+            description
+              "The identifier of a node in the TE topology.";
+          }
+          leaf link-tp-id {
+            type te-types:te-tp-id;
+              description
+                "TE link termination point identifier, used
+                 together with te-node-id to identify the
+                 link termination point";
+          }
+          leaf hop-type {
+            type te-hop-type;
+              description
+                "strict or loose hop";
+          }
+          description
+            "Unnumbered link explicit route subobject";
+          reference
+            "RFC3477: Signalling Unnumbered Links in
+            RSVP-TE";
+        }
+      }
+      case label {
+        container label-hop {
+          description "Label hop type";
+          leaf value {
+            type rt-types:generalized-label;
+            description "the label value";
+          }
+        }
+        description
+          "The Label ERO subobject";
+      }
+      case sid {
+        container sid-hop {
+          description "Segment routing SID hop";
+          leaf sid {
+            type rt-types:generalized-label;
+            description "Segment-routing identifier";
+          }
+        }
+        description "Segment-routing identifier";
+      }
+    }
+  }
+
+  grouping explicit-route-hop {
+    description "Explicit route hop grouping";
+    container config {
+      description
+        "Configuration parameters for the explicit route hop";
+      uses explicit-route-hop_config;
+    }
+    container state {
+      config false;
+      description
+        "State parameters for the explicit route hop";
+      uses explicit-route-hop_config;
+    }
+  }
+
+  grouping record-route-subobject {
+    description
+      "The record route subobject grouping";
+    choice type {
+      description
+        "The record route subobject type";
+      case numbered {
+        leaf address {
+          type te-types:te-tp-id;
+          description
+            "Numbered link TE termination point address.";
+        }
+        leaf ip-flags {
+          type binary {
+            length 8;
+          }
+          description
+            "RRO IP address sub-object flags";
+          reference "RFC3209";
+        }
+      }
+      case unnumbered {
+        leaf node-id {
+          type te-types:te-node-id;
+          description
+            "The identifier of a node in the TE topology.";
+        }
+        leaf link-tp-id {
+          type te-types:te-tp-id;
+            description
+              "TE link termination point identifier, used
+               together with te-node-id to identify the
+               link termination point";
+        }
+        description
+          "Unnumbered link record route subobject";
+        reference
+          "RFC3477: Signalling Unnumbered Links in
+           RSVP-TE";
+      }
+      case label {
+        leaf value {
+          type rt-types:generalized-label;
+          description "the label value";
+        }
+        leaf label-flags {
+          type binary {
+            length 8;
+          }
+          description
+            "Label sub-object flags";
+          reference "RFC3209";
+        }
+        description
+          "The Label ERO subobject";
+      }
+    }
+  }
+
+  grouping label-set-item-info {
+                description "Label set item info";
+    leaf inclusive-exclusive {
+      type enumeration {
+        enum inclusive {
+          description "The label or label range is inclusive.";
+        }
+        enum exclusive {
+          description "The label or label range is exclusive.";
+        }
+      }
+      description
+        "Whether the list item is inclusive or exclusive.";
+    }
+    leaf label-start {
+      type rt-types:generalized-label;
+      description
+        "This is the starting lable if a lable range is specified.
+         This is the lable value if a single lable is specified,
+         in which case, attribute 'label-end' is not set.";
+    }
+    leaf label-end {
+      type rt-types:generalized-label;
+      description
+        "The ending lable if a lable range is specified;
+         This attribute is not set, If a single lable is
+         specified.";
+    }
+    leaf range-bitmap {
+      type binary;
+      description
+        "When there are gaps between label-start and label-end,
+         this attribute is used to specified the possitions
+         of the used labels.";
+    }
+  }
+
+  grouping label-set-info {
+                description "Label set info grouping";
+    list label-set {
+      key "inclusive-exclusive label-start";
+      description
+        "The absence of label-set implies that all labels are
+         acceptable; otherwise only restricted labels are available.";
+
+      uses label-set-item-info;
+    }
+  }
+
   /*** End of TE tunnel groupings ***/
 
+  grouping optimizations_config {
+    description "Optimization metrics configuration grouping";
+    leaf metric-type {
+      type identityref {
+        base te-types:path-metric-type;
+      }
+      description "TE path metric type";
+    }
+    leaf weight {
+      type uint8;
+      description "TE path metric normalization weight";
+    }
+  }
+
+  grouping common-constraints_config {
+    description
+      "Common constraints grouping that can be set on
+       a constraint set or directly on the tunnel";
+    leaf topology-id {
+      type te-types:te-topology-id;
+      description
+        "The tunnel path is computed using the specific
+        topology identified by this identifier";
+    }
+    leaf ignore-overload {
+      type boolean;
+      description
+        "The tunnel path can traverse overloaded node.";
+    }
+    container bandwidth-generic {
+      uses te-types:te-bandwidth;
+      description
+        "A technology agnostic requested bandwidth to use
+         for path computation";
+    }
+    leaf disjointness {
+      type te-types:te-path-disjointness;
+      description
+        "The type of resource disjointness.";
+    }
+    leaf setup-priority {
+      type uint8 {
+        range "0..7";
+      }
+      description
+        "TE LSP requested setup priority";
+    }
+    leaf hold-priority {
+      type uint8 {
+        range "0..7";
+      }
+      description
+        "TE LSP requested hold priority";
+    }
+    leaf signaling-type {
+      type identityref {
+        base te-types:path-signaling-type;
+      }
+      description "TE tunnel path signaling type";
+    }
+  }
+
+  grouping path-metrics-bounds_config {
+    description "TE path metric bounds grouping";
+    leaf metric-type {
+      type identityref {
+        base te-types:path-metric-type;
+      }
+      description "TE path metric type";
+    }
+    leaf upper-bound {
+      type uint64;
+      description "Upper bound on end-to-end TE path metric";
+    }
+  }
+
+  grouping path-objective-function_config {
+    description "Optimization metrics configuration grouping";
+    leaf objective-function-type {
+      type identityref {
+        base te-types:objective-function-type;
+      }
+      description
+        "Objective function entry";
+    }
+  }
   /**
    * TE interface generic groupings
    **/
+  grouping generic-path-optimization {
+    description "TE generic path optimization grouping";
+
+    container optimizations {
+      description
+        "The objective function container that includes
+         attributes to impose when computing a TE path";
+
+      choice algorithm {
+        description "Optimizations algorithm.";
+        case metric {
+          if-feature path-optimization-metric;
+          /* Optimize by metric */
+          list optimization-metric {
+            key "metric-type";
+            description "TE path metric type";
+            uses optimizations_config;
+          }
+          /* Tiebreakers */
+          container tiebreakers {
+            description
+              "The list of tiebreaker criterion to apply
+               on an equally favored set of paths to pick best";
+            list tiebreaker {
+              key "tiebreaker-type";
+              description
+                "The list of tiebreaker criterion to apply
+                 on an equally favored set of paths to pick best";
+              leaf tiebreaker-type {
+                type identityref {
+                  base te-types:path-metric-type;
+                }
+                description "The objective function";
+              }
+            }
+          }
+        }
+        case objective-function {
+          if-feature path-optimization-objective-function;
+          /* Objective functions */
+          container objective-function {
+            description
+              "The objective function container that includes
+               attributes to impose when computing a TE path";
+            uses path-objective-function_config;
+          }
+        }
+      }
+    }
+  }
+
+  grouping generic-path-affinities {
+    description
+      "Path affinities grouping";
+    container path-affinities {
+      description
+        "Path affinities container";
+      list constraint {
+        key "usage";
+        description
+          "List of named affinity constraints";
+        leaf usage {
+          type identityref {
+            base resource-affinities-type;
+          }
+          description "Affinities usage";
+        }
+        leaf value {
+          type admin-groups;
+          description "Affinity value";
+        }
+      }
+    }
+  }
+
+  grouping generic-path-srlgs {
+    description
+      "Path SRLG grouping";
+    container path-srlgs {
+      description
+        "Path SRLG properties container";
+      leaf usage {
+        type identityref {
+          base te-types:route-exclude-srlg;
+        }
+        description "SRLG usage";
+      }
+      leaf-list values {
+        type srlg;
+        description "SRLG value";
+      }
+    }
+  }
+  grouping generic-path-constraints {
+    description
+      "Global named path constraints configuration
+      grouping";
+    container path-constraints {
+      description "TE named path constraints container";
+      list path-metric-bound {
+        key metric-type;
+        description "List of TE path metrics";
+        uses path-metrics-bounds_config;
+      }
+
+      uses common-constraints_config;
+      uses generic-path-affinities;
+      uses generic-path-srlgs;
+    }
+  }
+
+  grouping generic-computed-path-properties {
+    description "TE generic computed path properties grouping";
+    container computed-path-properties {
+      config false;
+      description "The TE path computed properties";
+      list path-metric {
+        key metric-type;
+        description "TE path metric type";
+        leaf metric-type {
+          type identityref {
+            base te-types:path-metric-type;
+          }
+          description "TE path metric type";
+        }
+        leaf accumulative-value {
+          type uint64;
+          description "TE path metric accumulative value";
+        }
+      }
+      uses generic-path-affinities;
+      uses generic-path-srlgs;
+      container path-computed-route-objects {
+        description
+          "Container for the list of computed route objects
+           as returned by the computation engine";
+        list path-computed-route-object {
+          key index;
+          description
+            "List of computed route objects returned by the
+             computation engine";
+          uses explicit-route-hop_config;
+        }
+      }
+    }
+  }
 }

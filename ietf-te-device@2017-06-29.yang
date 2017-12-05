@@ -43,6 +43,7 @@ module ietf-te-device {
 
      Editor:   Tarek Saad
                <mailto:tsaad@cisco.com>
+
      Editor:   Rakesh Gandhi
                <mailto:rgandhi@cisco.com>
 
@@ -57,7 +58,6 @@ module ietf-te-device {
 
      Editor:   Xia Chen
                <mailto:jescia.chenxia@huawei.com>
-
      Editor:   Raqib Jones
                <mailto:raqib@Brocade.com>
 
@@ -68,9 +68,9 @@ module ietf-te-device {
     "YANG data module for TE device configurations,
     state, RPC and notifications.";
 
-  revision "2017-03-10" {
+  revision "2017-06-29" {
     description "Latest update to TE device YANG module.";
-    reference "TBD";
+    reference "TBA";
   }
 
 
@@ -571,6 +571,7 @@ module ietf-te-device {
       }
     }
   }
+
   /* TE interface attributes grouping */
   grouping te-attributes {
     description "TE attributes configuration grouping";
@@ -647,6 +648,20 @@ module ietf-te-device {
 
   /* TE LSPs device state augmentation */
   augment "/te:te/te:lsps-state/te:lsp" {
+     description
+       "LSP device dependent augmentation";
+     uses lsps-device_state;
+  }
+
+  augment "/te:te/te:tunnels/te:tunnel/te:p2p-secondary-paths" +
+    "/te:p2p-secondary-path/te:state/te:lsps/te:lsp" {
+    description
+      "LSP device dependent augmentation";
+    uses lsps-device_state;
+  }
+
+  augment "/te:te/te:tunnels/te:tunnel/te:p2p-primary-paths" +
+    "/te:p2p-primary-path/te:state/te:lsps/te:lsp" {
     description
       "LSP device dependent augmentation";
     uses lsps-device_state;

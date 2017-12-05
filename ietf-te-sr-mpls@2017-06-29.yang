@@ -46,6 +46,7 @@ module ietf-te-sr-mpls {
 
      Editor:   Xia Chen
                <mailto:jescia.chenxia@huawei.com>
+
      Editor:   Raqib Jones
                <mailto:raqib@Brocade.com>
 
@@ -56,7 +57,7 @@ module ietf-te-sr-mpls {
     "YANG data module for MPLS TE configurations,
     state, RPC and notifications.";
 
-  revision "2017-03-10" {
+  revision "2017-07-02" {
     description "Latest update to MPLS TE YANG module.";
     reference "TBD";
   }
@@ -153,7 +154,6 @@ module ietf-te-sr-mpls {
       uses te-sr-named-path-constraints_config;
     }
   }
-
   /*** End of MPLS SR-TE tunnel configuration/state */
 
 
