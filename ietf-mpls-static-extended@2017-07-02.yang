@@ -64,7 +64,7 @@ module ietf-mpls-static-extended {
   description
     "This module contains the Extended MPLS YANG data model.";
 
-  revision 2017-03-10 {
+  revision 2017-07-02 {
     description "Latest revision of MPLS extended yang module.";
     reference "RFC2205";
   }
