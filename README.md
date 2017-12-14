@@ -6,8 +6,13 @@ in ../transport-nbi using the scripts in ../json-yang.
 Just run the shell scripts.
 
 ## Known issues:
+For both ODU2-service and te-topology:
+Currently only the JSON config data can be validated.
+To validate it, use ``run-use-case-1-odu2-service-config.sh``
+The other two scripts still fail.
 
 ### Error validating te-topology
+In addition to the errore described previously.
 Running ``run-use-case-1-topology.sh`` we get this error
 ``== Validating semantic constraints ...
 XPath error : Undefined namespace prefix
