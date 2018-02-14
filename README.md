@@ -1,26 +1,19 @@
-## Purpose
+## Transport-NBI backoffice
+### Purpose
+
 This repository contains the models used to validate the JSON code
 in [transport-nbi](https://github.com/GianmarcoBruno/transport-nbi.git)
-using the scripts in [json-yang](https://github.com/GianmarcoBruno/json-yang.git).
+using the validation chain in [json-yang](https://github.com/GianmarcoBruno/json-yang.git).
 
-## Usage
-Currently we want to validate models for `odu2-service` and `topology`,
-in case of posting the `configuration` and getting `state`.
-They currespond to a total of four scripts.
+These scripts perform the JSON validation:
+1. `run-use-case-1-odu2-service-post.sh` the input of a POST operation representing a ODU2 service
+2. `run-use-case-1-topology-get.sh` the output from a GET operation describing the topology
+3. `run-use-case-1-odu2-service-get.sh` the output from a GET operation representing the ODU2 service state
 
-## Known issues
-For both `odu2-service` and `topology`:
-Currently only the JSON config data can be validated.
-
-The other two scripts still fail.
-
-### Error validating te-topology
-In addition to the errors described previously.  
-Running `run-use-case-1-topology.sh` this error is raised:  
-``== Validating semantic constraints ...
-XPath error : Undefined namespace prefix
-xmlXPathCompOpEval: parameter error``
-still to be sorted out.
+Current status:  
+1. works
+2. JSON still misses state data
+3. JSON still misses state data
 
 ### te-topology has local modifications 
 Local ietf-te-topology.yang **differs** by those extract from
