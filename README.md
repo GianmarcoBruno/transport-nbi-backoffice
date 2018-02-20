@@ -6,14 +6,17 @@ in [transport-nbi](https://github.com/GianmarcoBruno/transport-nbi.git)
 using the validation chain in [json-yang](https://github.com/GianmarcoBruno/json-yang.git).
 
 These scripts perform the JSON validation:
-1. `run-use-case-1-odu2-service-post.sh` the input of a POST operation representing a ODU2 service
-2. `run-use-case-1-topology-get.sh` the output from a GET operation describing the topology
-3. `run-use-case-1-odu2-service-get.sh` the output from a GET operation representing the ODU2 service state
+1. `use-case-1-odu2-service-post/run.sh` the input of a POST operation representing a ODU2 service
+2. `use-case-1-topology-get/run.sh` the output from a GET operation describing the topology
+3. `use-case-1-odu2-service-get/run.sh` the output from a GET operation representing the ODU2 service state
 
 Current status:  
-1. works
-2. JSON still misses state data
-3. JSON still misses state data
+1. validates
+2. validates with this error to be sorted out  
+   `== Validating semantic constraints ...  
+    XPath error : Undefined namespace prefix  
+    xmlXPathCompOpEval: parameter error`
+3. does not validate yet
 
 ### te-topology has local modifications 
 Local ietf-te-topology.yang **differs** by those extract from
