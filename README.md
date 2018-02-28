@@ -2,8 +2,10 @@
 ### Purpose
 
 This repository contains the models used to validate the JSON code
-in [transport-nbi](https://github.com/GianmarcoBruno/transport-nbi.git)
+for the [transport-nbi](https://github.com/danielkinguk/transport-nbi.git) activity
 using the validation chain in [json-yang](https://github.com/GianmarcoBruno/json-yang.git).
+There is one directory per JSON document containing the document itself, a script and 
+the set of models.
 
 These scripts perform the JSON validation:
 1. `use-case-1-odu2-service-post/run.sh` the input of a POST operation representing a ODU2 service
@@ -12,11 +14,9 @@ These scripts perform the JSON validation:
 
 Current status:  
 1. validates
-2. validates with this error to be sorted out  
-   `== Validating semantic constraints ...  
-    XPath error : Undefined namespace prefix  
-    xmlXPathCompOpEval: parameter error`
-3. does not validate yet
+2. validates
+3. does not validate yet: error is  
+    `error: element "nc:data" incomplete; missing required element "rt:routing-state"`
 
 ### te-topology has local modifications 
 Local ietf-te-topology.yang **differs** by those extract from

@@ -1,4 +1,4 @@
 #!/bin/bash
-JSON=../../../rvilalta/transport-nbi/Internet-Drafts/Use-Case-1-Analysis/01/use-case-1-odu2-service-01.json
+JSON=use-case-1-odu2-service-01.json
 echo "JSON instance: " $JSON
 ../../json-yang/validate $JSON data
