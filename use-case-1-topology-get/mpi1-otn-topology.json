@@ -1,9 +1,9 @@
 {
-  "// __TITLE__": "ODU Abstract Topology @ MPI, use case 1",
-  "// __LAST_UPDATE__": "Mar 1, 2018",
+  "// __TITLE__": "ODU Abstract Topology @ MPI1",
+  "// __LAST_UPDATE__": "March 30, 2018",
   "// __RESTCONF_OPERATION__": {
     "operation": "GET",
-    "url": "http://{{PNC-ADDR}}/restconf/data/ietf-network:networks"
+    "url": "http://{{PNC1-ADDR}}/restconf/data/ietf-network:networks"
   },
   "// __REFERENCE_DRAFTS__": {
     "ietf-network@2017-12-18": "draft-ietf-i2rs-yang-network-topo-20",
@@ -789,7 +789,7 @@
                 "access-type": "point-to-point",
                 "// comment": [
                   "external-domain container",
-		  "not present for internal links"
+                  "not present for internal links"
                 ],
                 "name": "Link between S1 and S3",
                 "admin-status": "up",
