@@ -1,4 +1,9 @@
 #!/bin/bash
-JSON=use-case-1-odu2-service-01-config.json
+
+# usage: run.sh
+# override defaults: e.g.
+# FETCH=y ./run.sh
+
+JSON=mpi1-odu2-service-config.json
 echo "JSON instance: " $JSON
-../../json-yang/validate $JSON config
+../../json-yang/validate $JSON data
