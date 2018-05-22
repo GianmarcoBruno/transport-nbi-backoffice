@@ -8,13 +8,6 @@ There is one directory per JSON document containing the document itself, a scrip
 the set of models.
 
 These scripts perform the JSON validation:
-1. `use-case-1-odu2-service-post/run.sh` the input of a POST operation representing a ODU2 service
-2. `use-case-1-topology-get/run.sh` the output from a GET operation describing the topology
-3. `use-case-1-odu2-service-get/run.sh` the output from a GET operation representing the ODU2 service state
-
-Current status:  
-1. validates
-2. validates
-3. does not validate yet: error is  
-    `error: element "nc:data" incomplete; missing required element "rt:routing-state"`
-
+1. `use-case-1-odu2-service-config/run.sh` the input of a PUT operation representing a ODU2 service
+2. `use-case-1-topology-data/run.sh` the output from a GET operation describing the topology
+3. `use-case-1-epl-service-config/run.sh` the input from a PUT operation representing the EPL service
