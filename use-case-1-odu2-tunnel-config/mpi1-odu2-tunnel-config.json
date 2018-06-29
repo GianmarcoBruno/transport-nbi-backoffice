@@ -41,9 +41,8 @@
           "te-bandwidth": {
             "ietf-otn-tunnel:odu-type": "ietf-otn-types:prot-ODU2"
           },
-          "// __ DISCUSS __ hierarchical-link": [
-            "Optional to be specified since the tunnel supports a service and not a link in the client layer"
-          ],
+          "// __ DISCUSS __ hierarchical-link":
+            "Optional to be specified since the tunnel supports a service and not a link in the client layer",
           "p2p-primary-paths": {
             "p2p-primary-path": [
               {
