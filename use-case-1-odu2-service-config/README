@@ -1,2 +1,0 @@
-ietf-otn-tunnel is explicitly stored here because rfcstrip cannot extract it
-out of the draft. There is a missing space between <CODE BEGIN> and 'file'.
