@@ -405,7 +405,7 @@
               "type": "inter-domain link",
               "physical link": "Link from S8-5 to S12"
             },
-            "link-id": "teNodeId/10.0.0.1/teLinkId/4",
+            "link-id": "teNodeId/10.0.0.1/teLinkId/5",
             "source": {
               "source-node": "10.0.0.1",
               "source-tp": 5
