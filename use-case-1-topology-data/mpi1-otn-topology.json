@@ -1,20 +1,20 @@
 {
   "// __TITLE__": "ODU Black Topology @ MPI1",
-  "// __LAST_UPDATE__": "October 17, 2018",
-  "// __RESTCONF_OPERATION__": {
-    "operation": "GET",
-    "url": "http://{{PNC1-ADDR}}/restconf/data/ietf-network:networks"
-  },
+  "// __LAST_UPDATE__": "October 18, 2018",
+  "// __MISSING_ATTRIBUTES__": true,
   "// __REFERENCE_DRAFTS__": {
     "ietf-routing-types@2017-12-04": "rfc8294",
+    "ietf-otn-types@2018-08-23": "draft-ietf-ccamp-otn-tunnel-model-05",
     "ietf-network@2018-02-26": "rfc8345",
     "ietf-network-topology@2018-02-26": "rfc8345",
     "ietf-te-types@2018-06-12": "draft-ietf-teas-yang-te-15",
     "ietf-te-topology@2018-06-15": "draft-ietf-teas-yang-te-topo-18",
-    "ietf-otn-types@2018-08-23": "draft-ietf-ccamp-otn-tunnel-model-05",
     "ietf-otn-topology@2018-08-23": "draft-ietf-ccamp-otn-topo-yang-05"
   },
-  "// __MISSING_ATTRIBUTES__": true,
+  "// __RESTCONF_OPERATION__": {
+    "operation": "GET",
+    "url": "http://{{PNC1-ADDR}}/restconf/data/ietf-network:networks"
+  },
   "ietf-network:networks": {
     "network": [
       {
@@ -80,7 +80,7 @@
                   "name": "AN1-2 LTP",
                   "link type(s)": "OTU-4",
                   "physical node": "S2",
-                  "unnumberd/ifIndex": 2,
+                  "unnumberd/ifIndex": 1,
                   "port type": "inter-domain port",
                   "connected to": "S31"
                 },
@@ -122,7 +122,7 @@
                   "name": "AN1-4 LTP",
                   "link type(s)": "OTU-4",
                   "physical node": "S8",
-                  "unnumberd/ifIndex": 4,
+                  "unnumberd/ifIndex": 1,
                   "port type": "inter-domain port",
                   "connected to": "S32"
                 },
@@ -185,7 +185,7 @@
                   "name": "AN1-7 LTP",
                   "link type(s)": "OTU-2",
                   "physical node": "S6",
-                  "unnumberd/ifIndex": 4,
+                  "unnumberd/ifIndex": 2,
                   "port type": "tributary port",
                   "connected to": "R3"
                 },
@@ -264,7 +264,7 @@
             "// __DESCRIPTION__:__LINK__": {
               "name": "Inter-domain Link from AN1-2",
               "type": "inter-domain link",
-              "physical link": "Link from S2-2 to S31"
+              "physical link": "Link from S2-1 to S31"
             },
             "link-id": "teNodeId/10.0.0.1/teLinkId/2",
             "ietf-te-topology:te": {
@@ -370,7 +370,7 @@
             "// __DESCRIPTION__:__LINK__": {
               "name": "Inter-domain Link from AN1-4",
               "type": "inter-domain link",
-              "physical link": "Link from S8-4 to S32"
+              "physical link": "Link from S8-1 to S32"
             },
             "link-id": "teNodeId/10.0.0.1/teLinkId/4",
             "ietf-te-topology:te": {
@@ -529,7 +529,7 @@
             "// __DESCRIPTION__:__LINK__": {
               "name": "Access Link from AN1-7",
               "type": "access link",
-              "physical link": "Link from S6-4 to R3"
+              "physical link": "Link from S6-2 to R3"
             },
             "link-id": "teNodeId/10.0.0.1teLinkId/7",
             "ietf-te-topology:te": {
