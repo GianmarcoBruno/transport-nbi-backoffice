@@ -4,12 +4,12 @@
   "// __MISSING_ATTRIBUTES__": true,
   "// __REFERENCE_DRAFTS__": {
     "ietf-routing-types@2017-12-04": "rfc8294",
-    "ietf-otn-types@2018-08-23": "draft-ietf-ccamp-otn-tunnel-model-05",
+    "ietf-otn-types@2017-10-30": "draft-ietf-ccamp-otn-tunnel-model-01",
     "ietf-network@2018-02-26": "rfc8345",
     "ietf-network-topology@2018-02-26": "rfc8345",
     "ietf-te-types@2018-06-12": "draft-ietf-teas-yang-te-15",
     "ietf-te-topology@2018-06-15": "draft-ietf-teas-yang-te-topo-18",
-    "ietf-otn-topology@2018-08-23": "draft-ietf-ccamp-otn-topo-yang-05"
+    "ietf-otn-topology@2017-10-30": "draft-ietf-ccamp-otn-topo-yang-02"
   },
   "// __RESTCONF_OPERATION__": {
     "operation": "GET",
