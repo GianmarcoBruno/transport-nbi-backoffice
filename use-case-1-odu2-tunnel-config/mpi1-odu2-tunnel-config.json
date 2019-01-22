@@ -25,7 +25,7 @@
           "description":
            "TNBI Example for an ODU2 Head Tunnel Segment @ MPI1",
           "// encoding and switching-type": "ODU",
-          "encoding": "ietf-te-types:lsp-encoding-oduk ",
+          "encoding": "ietf-te-types:lsp-encoding-oduk",
           "switching-type": "ietf-te-types:switching-otn",
           "source": "10.0.0.3",
           "// destination": "None: head tunnel segment",
@@ -103,7 +103,7 @@
                           "ietf-otn-tunnel:ts-list": "9-16",
                           "// __ ACTION __ direction":
                            "Check with TE Tunnel authors",
-                          "direction": "FORWARD "
+                          "direction": "FORWARD"
                         }
                       }
                     }
