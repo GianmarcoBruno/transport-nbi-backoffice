@@ -25,7 +25,7 @@
           "description":
        "ODU2 Service implemented by ODU2 OTN Tunnel Segment @ MPI1",
           "// encoding and switching-type": "ODU",
-          "encoding": "ietf-te-types:lsp-encoding-oduk ",
+          "encoding": "ietf-te-types:lsp-encoding-oduk",
           "switching-type": "ietf-te-types:switching-otn",
           "// source": "None: transit tunnel segment",
           "// destination": "None: transit tunnel segment",
@@ -133,7 +133,7 @@
                           ],
                           "// __ ACTION __ direction":
                            "Check with TE Tunnel authors",
-                          "direction": "FORWARD "
+                          "direction": "FORWARD"
                         }
                       }
                     },
@@ -168,7 +168,7 @@
                           "ietf-otn-tunnel:ts-list": "1-8",
                           "// __ ACTION __ direction":
                            "Check with TE Tunnel authors",
-                          "direction": "FORWARD "
+                          "direction": "FORWARD"
                         }
                       }
                     }
