@@ -1,0 +1,15 @@
+#!/bin/bash
+# yanglint interactive scripting
+JSON_FILE=mpi1-otn-topology.json
+YANG_FILE=ietf-otn-topology@2017-10-30.yang
+#YANG_AUG_FILE=dishwasher-decorated.yang
+
+JSON_FILE_TMP=tmp-${JSON_FILE}
+cp $JSON_FILE $JSON_FILE_TMP
+
+python ../../json-yang/scripts/Stripper.py -i $JSON_FILE_TMP --clean
+
+echo "add -i ${YANG_FILE}
+      data ${JSON_FILE_TMP}" | yanglint
+
+rm $JSON_FILE_TMP
