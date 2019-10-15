@@ -1,3 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 
-../../json-yang/validate -w data -j mpi1-otn-topology.json -f
+#validate -w data -j mpi1-otn-topology.json -f
+#validate -w data -j mpi1-otn-topology.json -s yanglint -y downloads
