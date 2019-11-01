@@ -3,4 +3,4 @@
 # usage: run.sh
 
 # validates
-validate -w data -j mpi1-epl-service-config.json -y downloads -s yanglint -v -f
+validate -w data -j mpi1-epl-service-config.json -m downloads -s yanglint -v -f

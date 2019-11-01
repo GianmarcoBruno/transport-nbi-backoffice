@@ -1,13 +1,15 @@
 #!/bin/bash -i
 
-# currently we need a module with local modifications because it is broken
+# currently we need ietf-otn-tunnel module with local modifications because it is broken
 
-# so if you run from scratch
-# validate -w data -j mpi1-odu2-tunnel-config.json -s yanglint -y downloads -v -f
-# then revert to use local modificationsA
-# git checkout -- downloads/ietf-otn-tunnel@2019-07-08.yang
-# and run again
-# validate -w data -j mpi1-odu2-tunnel-config.json -s yanglint -y downloads -v -f
+# fail on purpose using only the downloaded model
+rm -rf target downloads
+validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -f -p
 
-# if you have already downloaded models, just:
-validate -w data -j mpi1-odu2-tunnel-config.json -s yanglint -k -y downloads
+# validate successfully fetching and then using overridden model
+rm -rf target downloads
+validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -m models -f
+
+# validate successfully using downloaded models and the overridden model
+rm -rf target
+validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -m models
