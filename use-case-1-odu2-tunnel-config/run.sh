@@ -8,8 +8,8 @@ validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -f -p
 
 # validate successfully fetching and then using overridden model
 rm -rf target downloads
-validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -m models -f
+validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -m overrides -f
 
 # validate successfully using downloaded models and the overridden model
 rm -rf target
-validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -m models
+validate -w data -j mpi1-odu2-tunnel-config.json -m downloads -m overrides
